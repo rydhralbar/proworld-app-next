@@ -1,0 +1,16 @@
+$backgroundMerah: pink;
+
+.main {
+  overflow: hidden;
+
+  .rightCol {
+    padding: 50px;
+  }
+
+  .loginForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+}
