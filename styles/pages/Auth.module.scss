@@ -5,60 +5,36 @@ $backgroundMerah: pink;
 .main {
   overflow: hidden;
 
-  .leftCol {
-    background-image: url("/images/background-logreg.svg");
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    position: relative;
-
-    .overlay {
-      background-color: rgba(94, 80, 161, 0.8);
-      height: 100vh;
-      width: 100%;
-    }
-
-    .content {
-      position: absolute;
-      top: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 50px;
-
-      .sloganText {
-        font-style: normal;
-        font-weight: 600;
-        font-size: 38px;
-        line-height: 66px;
-        color: #ffffff;
-        width: 67%;
-      }
-
-      .appLogo {
-        margin-left: -13%;
-        margin-bottom: 100%;
-      }
-    }
-    
+  .welcome {
+    text-align: center;
+    padding-top: 85px;
   }
 
-  .rightCol {
-    padding: 50px;
-  }
-
-  .loginForm {
-    display: flex;
+  .content {
+    display: grid;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 20vh;
+    margin-top: 45px;
+
+    h4{
+      font-size: 28px;
+      text-align: center;
+      margin: 13px;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .main {
+    .loginForm {
+      margin-top: -181%;
+      margin-left: 12%;
+      position: absolute;
+    }
 
     p{
-      font-size: 30px;
-      margin-top: 10px;
-      margin-right: 10px;
-      margin-left: 10px;
+      color: white;
     }
   }
 }

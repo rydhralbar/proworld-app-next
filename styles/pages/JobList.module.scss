@@ -1,0 +1,21 @@
+.jobsBody {
+  background: #E5E5E5;
+
+  .cardStyle {
+    border: none !important;
+    border-radius: 8px;
+  }
+
+  .paginationLayout {
+    --bs-pagination-color: #E5E5E5;
+    --bs-pagination-border-color: white;
+    --bs-pagination-hover-bg: #5E50A1;
+    --bs-pagination-hover-color:white;
+    --bs-pagination-hover-border-color: #5E50A1;
+    --bs-pagination-active-border-color: #5E50A1;
+    --bs-pagination-active-bg: #5E50A1;
+    --bs-pagination-active-color: white;
+  }
+}
+
+

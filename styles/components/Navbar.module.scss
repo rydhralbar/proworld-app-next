@@ -1,0 +1,18 @@
+.navbarMenu {
+  .appLogo {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .dropdownButton {
+    --bs-btn-color: black;
+    --bs-btn-bg: transparent;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #5e50a1;
+    --bs-btn-hover-border-color: #5e50a1;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #5e50a1;
+    --bs-btn-active-border-color: #5E50A1;
+  }
+
+}

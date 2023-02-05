@@ -6,8 +6,7 @@ $backgroundMerah: pink;
   overflow-x: hidden;
   
   .rightCol {
-    padding: 50px;
-    margin-top: 85%;
+    margin-top: 87%;
   }
 
   .loginForm {
@@ -15,5 +14,6 @@ $backgroundMerah: pink;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: auto;
   }
 }

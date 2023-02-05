@@ -35,3 +35,17 @@
       }
     }     
 }
+
+@media screen and (max-width: 576px) {
+  .leftCol {
+
+    .sloganText {
+      display: none;
+    }
+
+    .content {
+      align-items: unset;
+      padding: 20px
+    }
+  }
+}
