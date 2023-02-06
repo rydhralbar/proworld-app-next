@@ -1,14 +1,21 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-import Link from 'next/link'
-import Navbar from '@/components/organisms/Navbar'
-import Footer from '@/components/organisms/Footer'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import styles from "@/styles/pages/Home.module.scss";
+import Link from "next/link";
+import Navbar from "@/components/organisms/Navbar";
+import Footer from "@/components/organisms/Footer";
+import mainImage from "@/public/images/developer.svg";
+import overlayBackground from "@/public/images/sloping-square.svg";
+import polkadot from "@/public/images/polkadot.svg";
+import { useState } from "react";
+import { getCookie } from "cookies-next";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 const Home = () => {
+  const [isLogin, setIsLogin] = useState(getCookie("isLogin"))
+
   return (
     <>
       <Head>
@@ -18,70 +25,47 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-      <Navbar />
+        <Navbar />
 
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
+        <div className="container" style={{ zIndex: 1 }}>
+          <div className="row align-items-center">
+            {/* <!-- side left --> */}
+            <div className="col-lg-5 col-xs-12">
+              <h1 style={{fontSize: "45px"}}>The nation's best talent for revolution change 2.0</h1>
+              <p style={{marginTop: "1rem", marginBottom: "2rem" , fontSize: "20px", color: "#46505C"}}>We provide Talents and skills that you can rely on, interested? Click the button below</p>
+              <Link href={`${isLogin ? "/jobs" : "/auth"}`}>
+                <button className="btn btn-primary" style={{height: "50px", width: "170px", borderRadius: "3px"}}>
+                Start from now
+                </button>
+              </Link>
+            </div>
+            {/* <!-- side right --> */}
+            <div className={`col-lg-6 ${styles.backgroundGrid}`}>
+              <Image
+                src={mainImage}
+                className={styles.mainBackground}
+                alt="Developer"
+              />
+              {/* <!-- background header --> */}
+              <Image
+                src={overlayBackground}
+                className={styles.background1}
+                alt="Background"
+              />
+              <Image
+                src={polkadot}
+                className={styles.background2}
+                alt="Polkadot"
+              />
+            </div>
+          </div>
         </div>
-        <Footer />
+
+
       </main>
+      <Footer />
     </>
-  )
-}
+  );
+};
 
 export default Home;
