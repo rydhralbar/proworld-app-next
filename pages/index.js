@@ -31,7 +31,7 @@ const Home = () => {
           <div className="row align-items-center">
             {/* <!-- side left --> */}
             <div className="col-lg-5 col-xs-12">
-              <h1 style={{fontSize: "45px"}}>The nation's best talent for revolution change 2.0</h1>
+              <h1 style={{fontSize: "45px"}}>The nation&apos;s best talent for revolution change 2.0</h1>
               <p style={{marginTop: "1rem", marginBottom: "2rem" , fontSize: "20px", color: "#46505C"}}>We provide Talents and skills that you can rely on, interested? Click the button below</p>
               <Link href={`${isLogin ? "/jobs" : "/auth"}`}>
                 <button className="btn btn-primary" style={{height: "50px", width: "170px", borderRadius: "3px"}}>

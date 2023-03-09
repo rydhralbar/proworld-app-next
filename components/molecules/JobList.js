@@ -6,7 +6,7 @@ import { TfiLocationPin} from 'react-icons/tfi'
 const JobList = ({item}) => {
   return (
     <>
-        <Link href="/auth">
+        <Link href={`/jobs/detail/${item?.['user.fullname'].split(" ").join("-").toLowerCase()}`}>
           <img
             src={item?.['user.photo_profile']}
             alt="Profile"
@@ -43,7 +43,7 @@ const JobList = ({item}) => {
         <div className="d-flex" style={{ paddingLeft: "17px" }}>
         {item?.skills?.slice(0, 2).map((_item) => (
               <span
-                class={"badge bg-warning"}
+                className={"badge bg-warning"}
                 style={{marginRight: "10px"}}
                 key={_item}
               >
@@ -51,7 +51,7 @@ const JobList = ({item}) => {
               </span>
             ))}
           {item?.skills?.slice(2, item?.skills?.length)?.length ? (
-              <span class={"badge bg-warning"}>
+              <span className={"badge bg-warning"}>
                 {item?.skills?.slice(2, item?.skills?.length)?.length}+
               </span>
             ) : null}

@@ -10,7 +10,7 @@ const LeftColumn = () => {
             <div className={style.overlay} />
             <div className={style.content}>
               <Link className={style.appLogo} href="/">
-                <Image src={proworldLogo}/>
+                <Image src={proworldLogo} alt="Logo"/>
               </Link>
               <h1 className={style.sloganText}>
               Find the best & talented developers in various fields of expertise

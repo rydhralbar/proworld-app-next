@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3500",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "next build && next export",
+    "start": "next start --port 3500",
+    "lint": "next lint",
+    "production": "next build && next start --port 3500"
   },
   "dependencies": {
     "@next/font": "13.1.6",
+    "@reduxjs/toolkit": "^1.9.2",
     "axios": "^1.2.6",
     "bootstrap": "^5.2.3",
     "cookies-next": "^2.1.1",
@@ -19,6 +21,11 @@
     "react": "^18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
-    "sass": "^1.57.1"
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
+    "redux-persist-transform-encrypt": "^4.0.0",
+    "sass": "^1.57.1",
+    "sharp": "^0.31.3"
   }
 }

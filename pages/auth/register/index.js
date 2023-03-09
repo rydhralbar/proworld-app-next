@@ -13,6 +13,7 @@ const TalentRegister = () => {
   const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [success, setSuccess] = React.useState(null);
 
   const router = useRouter()
 
@@ -20,16 +21,19 @@ const TalentRegister = () => {
     try {
       setIsLoading(true);
 
-      const connect = await axios.post("/api/login", {
+      const connect = await axios.post("/api/talentRegister", {
+        fullname: name,
         email,
+        phone_number: phoneNumber,
         password,
       });
 
       setIsLoading(false);
-      setError(null);
+      setSuccess("Register successful");
 
-      localStorage.setItem("token", connect.data.token);
-      localStorage.setItem("profile", JSON.stringify(connect.data.data));
+      setTimeout(() => {
+        router.replace("/auth/login");
+      }, 1800);
     } catch (error) {
       setIsLoading(false);
       setError(
@@ -53,11 +57,17 @@ const TalentRegister = () => {
         </div>
         <div className="col-lg-6">
           <div className={style.loginForm} style={{height: "100vh", overflow: "auto"}}>
-            <div className={style.rightCol} style={{marginTop: "55%"}} >
+            <div className={style.rightCol} style={{marginTop: "42%"}} >
               <h2>Hello, New Talent !</h2>
               <p className={error ? "mb-3" : "mb-5"}>
               Fill out the form below to register
               </p>
+
+              {success && (
+                  <div className="alert alert-success mb-3" role="alert">
+                    {success}
+                  </div>
+                )}
 
               {error && (
                 <div className="alert alert-danger mb-3" role="alert">
@@ -109,22 +119,10 @@ const TalentRegister = () => {
                     Password
                   </label>
                   <input
-                    type="tel"
+                    type="password"
                     className="form-control form-control-lg"
                     id="password-input"
                     placeholder="Type your password..."
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className="mb-5">
-                  <label htmlFor="password-input" className="form-label">
-                    Confirm Password
-                  </label>
-                  <input
-                    type="tel"
-                    className="form-control form-control-lg"
-                    id="password-input"
-                    placeholder="Type your password again..."
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>

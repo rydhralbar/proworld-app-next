@@ -1,24 +1,29 @@
+// eslint-disable-next-line react-hooks/exhaustive-deps
 import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "../../../styles/pages/Login.module.scss";
 import LeftColumn from "@/components/molecules/LeftColumnLogReg";
 import { useRouter } from "next/router";
-import { setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
+import * as auth from "@/store/reducer/auth";
+import { useDispatch, useSelector } from "react-redux";
+import store from "@/store";
 
 const Login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [success, setSuccess] = React.useState(null);
 
   const router = useRouter();
+  // const dispatch = useDispatch()
+  // const store = useSelector((state) => state);
 
-  React.useEffect(() => {
-    let isLogin =
-      localStorage.getItem("token") && localStorage.getItem("profile");
+  useEffect(() => {
+    let isLogin = getCookie("profile") && getCookie("token");
 
     if (isLogin) {
       router.replace("/");
@@ -37,14 +42,17 @@ const Login = () => {
       setIsLoading(false);
       setError(null);
 
+      // dispatch(auth.setProfile(connect?.data?.data))
+      // dispatch(auth.setToken(connect?.data?.token))
+
       setCookie("isLogin", "true");
-      setCookie("token", connect?.data?.token);
       setCookie("profile", JSON.stringify(connect?.data?.data));
+      setCookie("token", connect?.data?.token);
       setSuccess("Login successful");
 
       setTimeout(() => {
         router.replace("/");
-      }, 1700)  
+      }, 1700);
     } catch (error) {
       setIsLoading(false);
       setError(
@@ -70,7 +78,7 @@ const Login = () => {
             <div className={style.loginForm}>
               <div className={style.rightCol}>
                 <h2>Hello, Propeople !</h2>
-                <p className={error || success? "mb-3" : "mb-5"}>
+                <p className={error || success ? "mb-3" : "mb-5"}>
                   Login to start your session
                 </p>
 
@@ -127,7 +135,7 @@ const Login = () => {
                   </div>
 
                   <p className="text-center">
-                    You don't have an account yet?{" "}
+                    You don&apos;t have an account yet?{" "}
                     <Link href="/auth" style={{ color: "#5E50A1" }}>
                       Register here
                     </Link>

@@ -1,14 +1,21 @@
 import React, {useState} from "react";
 import { useRouter } from "next/router";
 import {deleteCookie} from "cookies-next"
+import store from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import * as auth from '@/store/reducer/auth'
 
 const Logout = () => {
+  // const dispatch = useDispatch()
   const router = useRouter();
+  // const store = useSelector((state) => state)
   useState(() => {
     setTimeout(() => {
       deleteCookie("isLogin");
       deleteCookie("profile");
       deleteCookie("token");
+      // dispatch(auth.removeProfile(null));
+      // dispatch(auth.removeToken(null));
       router.replace("/");
     }, 1500)
   }, [])

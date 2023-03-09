@@ -1,8 +1,31 @@
 $backgroundMerah: pink;
 
 .main {
-  .colKiri {
-    background-color: $backgroundMerah;
-    height: 300px;
+  .backgroundGrid {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .mainBackground {
+      position: absolute;
+      z-index: 5;
+      width: 32%;
+      margin-top: 32px;
+      margin-left: 15%;
+    }
+  
+    .background1 {
+      margin-top: 10%;
+      margin-left: 37%;
+      width: 100%
+    }
+  
+    .background2 {
+      position: absolute;
+      z-index: 6;
+      margin-top: 28%;
+      margin-right: 13%;
+    }
   }
 }

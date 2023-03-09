@@ -2,14 +2,12 @@ import axios from "axios";
 
 const handler = (req, res) => {
   try {
-    const { fullname, email, company, position, phone_number, password } = req.body;
+    const { fullname, email, phone_number, password } = req.body;
     
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/v1/auth/register/recruiter`, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/v1/auth/register`, {
         fullname,
         email,
-        company,
-        position,
         phone_number,
         password
       })

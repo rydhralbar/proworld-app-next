@@ -13,6 +13,7 @@ const RecruiterRegister = () => {
   const [position, setPosition] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [success, setSuccess] = React.useState(null);
@@ -22,28 +23,27 @@ const RecruiterRegister = () => {
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      console.log({
-        env: process.env,
-      });
+      if (confirmPassword === password) {
+        const connect = await axios.post("/api/recruiterRegister", {
+          fullname: name,
+          email,
+          company,
+          position,
+          phone_number: phoneNumber,
+          password,
+        });
 
-      const connect = await axios.post("/api/recruiterRegister", {
-        fullname: name,
-        email,
-        company,
-        position,
-        phone_number: phoneNumber,
-        password,
-      });
+        setSuccess("Register successful");
 
+        setTimeout(() => {
+          router.replace("/auth/login");
+        }, 1800);
+      } else {
+        setError("Confirm your password is wrong");
+      }
       setIsLoading(false);
-      setSuccess("Register successful")
-
-      setTimeout(() => {
-        router.replace("/auth/login");
-      }, 1800)
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
       setError(
         error?.response?.data?.messages ?? "Something wrong in our server"
       );
@@ -72,7 +72,7 @@ const RecruiterRegister = () => {
                 </p>
 
                 {success && (
-                  <div className="alert alert-danger mb-3" role="alert">
+                  <div className="alert alert-success mb-3" role="alert">
                     {success}
                   </div>
                 )}
@@ -169,7 +169,12 @@ const RecruiterRegister = () => {
                       className="form-control form-control-lg"
                       id="password-input"
                       placeholder="Type your password again..."
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleSubmit();
+                        }
+                      }}
                     />
                   </div>
                   <div className="d-grid mb-3">

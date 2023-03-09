@@ -22,107 +22,104 @@ const Recruiter = () => {
           </div>
           <div className="col-lg-6">
             <div className={styles.welcome}>
-              <h1 style={{marginBottom: "60px"}}>
-              Welcome to Proworld !
-              </h1>
-              <p style={{fontSize:"22px"}}>
-              Please choose your role
-              </p>
+              <h1 style={{ marginBottom: "60px" }}>Welcome to Proworld !</h1>
+              <p style={{ fontSize: "22px" }}>Please choose your role</p>
             </div>
             <div className={styles.content}>
               <div
-                class="modal fade"
-                id="exampleModalToggle"
+                className="modal fade"
+                id="talent"
                 aria-hidden="true"
                 aria-labelledby="exampleModalToggleLabel"
                 tabindex="-1"
               >
-                <div class="modal-dialog modal-dialog-centered modal-sm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
-                      Select an option below
+                <div className="modal-dialog modal-dialog-centered modal-sm">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h1
+                        className="modal-title fs-5"
+                        id="exampleModalToggleLabel"
+                      >
+                        Select an option below
                       </h1>
                       <button
                         type="button"
-                        class="btn-close"
+                        className="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"
                       ></button>
                     </div>
-                    <div class="modal-body" style={{display: "flex", justifyContent: "center"}}>
-                    <a href='/auth/register'>
-                      <button
-                          class="btn btn-primary"
-                          style={{marginRight: "50px"}}
+                    <div
+                      className="modal-body"
+                      style={{ display: "flex", justifyContent: "center" }}
+                    >
+                      <a href="/auth/register">
+                        <button
+                          className="btn btn-primary"
+                          style={{ marginRight: "50px" }}
                         >
                           Register
                         </button>
-                    </a>
-                    <a href='/auth/login'>
-                      <button
-                        class="btn btn-primary"
-                      >
-                        Login
-                      </button>
-                    </a>
+                      </a>
+                      <a href="/auth/login">
+                        <button className="btn btn-primary">Login</button>
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
               <a
-                class="btn btn-primary"
+                className="btn btn-primary"
                 data-bs-toggle="modal"
-                href="#exampleModalToggle"
+                href="#talent"
                 role="button"
               >
                 As Talent
               </a>
               <h4>or</h4>
               <div
-                class="modal fade"
-                id="exampleModalToggle2"
+                className="modal fade"
+                id="recruiter"
                 aria-hidden="true"
                 aria-labelledby="exampleModalToggleLabel"
                 tabindex="-1"
               >
-                <div class="modal-dialog modal-dialog-centered modal-sm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
-                      Select an option below
+                <div className="modal-dialog modal-dialog-centered modal-sm">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h1
+                        className="modal-title fs-5"
+                        id="exampleModalToggleLabel"
+                      >
+                        Select an option below
                       </h1>
                       <button
                         type="button"
-                        class="btn-close"
+                        className="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"
                       ></button>
                     </div>
-                    <div class="modal-body d-flex justify-content-center">
-                    <a href='/auth/register/recruiter'>
-                      <button
-                          class="btn btn-primary"
-                          style={{marginRight: "50px"}}
+                    <div className="modal-body d-flex justify-content-center">
+                      <a href="/auth/register/recruiter">
+                        <button
+                          className="btn btn-primary"
+                          style={{ marginRight: "50px" }}
                         >
                           Register
                         </button>
-                    </a>
-                    <a href='/auth/login'>
-                      <button
-                        class="btn btn-primary"
-                      >
-                        Login
-                      </button>
-                    </a>
+                      </a>
+                      <a href="/auth/login">
+                        <button className="btn btn-primary">Login</button>
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
               <a
-                class="btn btn-primary"
+                className="btn btn-primary"
                 data-bs-toggle="modal"
-                href="#exampleModalToggle2"
+                href="#recruiter"
                 role="button"
               >
                 As Recruiter
