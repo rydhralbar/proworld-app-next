@@ -3,7 +3,6 @@ import { persistReducer } from "redux-persist";
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
-
 import auth from "./reducer/auth";
 
 const reducers = combineReducers({
@@ -16,9 +15,7 @@ const persistConfig = {
   transforms: [
     encryptTransform({
       secretKey: "my-super-secret-key",
-      onError: (error) => {
-        // Handle the error.
-      },
+      onError: (error) => {},
     }),
   ],
 };

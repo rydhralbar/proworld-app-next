@@ -3,12 +3,12 @@ import Head from "next/head";
 import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.css";
 import { Provider } from "react-redux";
-import {PersistGate} from "redux-persist/integration/react"
+import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import store from "@/store/index"
+import store from "@/stores/index";
 
 const App = ({ Component, pageProps }) => {
-  let persistor = persistStore(store)
+  let persistor = persistStore(store);
   return (
     <>
       <Head>
@@ -27,7 +27,7 @@ const App = ({ Component, pageProps }) => {
         </PersistGate>
       </Provider>
     </>
-  )
+  );
 };
 
 export default App;

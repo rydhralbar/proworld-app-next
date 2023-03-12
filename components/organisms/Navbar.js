@@ -7,15 +7,12 @@ import styles from "@/styles/components/Navbar.module.scss";
 import mailLogo from "@/public/images/mail-logo.png";
 import bellLogo from "@/public/images/bell-logo.png";
 import { getCookie } from "cookies-next";
+import { useSelector } from "react-redux";
 
 const NavbarLogged = () => {
-  const [profile, setProfile] = useState(null);
+  const profile = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (getCookie("profile")) {
-      setProfile(JSON.parse(getCookie("profile")));
-    }
-  }, [getCookie("profile")]);
+  const user = profile?.profile?.payload;
 
   return (
     <nav
@@ -26,7 +23,7 @@ const NavbarLogged = () => {
     >
       <div className="container">
         <Link href="/">
-          <Image src={proworldLogo} className={styles.appLogo} alt="Logo"/>
+          <Image src={proworldLogo} className={styles.appLogo} alt="Logo" />
         </Link>
         <div className="d-flex">
           <div>
@@ -56,7 +53,7 @@ const NavbarLogged = () => {
             <Link href="/profile">
               <img
                 className="rounded-circle mt-2"
-                src={profile?.photo_profile}
+                src={user?.photo_profile}
                 alt="Profile"
                 style={{
                   width: "45px",
@@ -133,7 +130,7 @@ const NavbarGuest = () => (
   >
     <div className="container">
       <Link href="/">
-        <Image src={proworldLogo} className={styles.appLogo} alt="Logo"/>
+        <Image src={proworldLogo} className={styles.appLogo} alt="Logo" />
       </Link>
       <div>
         <Link href="/auth">
@@ -149,11 +146,13 @@ const NavbarGuest = () => (
 const Navbar = () => {
   const [isLogin, setIsLogin] = useState(false);
 
+  const profile = useSelector((state) => state.auth);
+
   useEffect(() => {
-    if (getCookie("isLogin")) {
+    if (profile?.profile?.payload) {
       setIsLogin(true);
     }
-  }, [getCookie("isLogin")]);
+  }, [profile]);
 
   return <div>{isLogin ? <NavbarLogged /> : <NavbarGuest />}</div>;
 };

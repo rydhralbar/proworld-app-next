@@ -6,10 +6,9 @@ import React, { useEffect, useState } from "react";
 import style from "../../../styles/pages/Login.module.scss";
 import LeftColumn from "@/components/molecules/LeftColumnLogReg";
 import { useRouter } from "next/router";
-import { getCookie, setCookie } from "cookies-next";
-import * as auth from "@/store/reducer/auth";
 import { useDispatch, useSelector } from "react-redux";
-import store from "@/store";
+import * as profileReducer from "@/stores/reducer/auth";
+import { setCookie } from "cookies-next";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,46 +18,49 @@ const Login = () => {
   const [success, setSuccess] = React.useState(null);
 
   const router = useRouter();
-  // const dispatch = useDispatch()
-  // const store = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.auth);
+
+  console.log(profile);
+  const isLogin = false;
 
   useEffect(() => {
-    let isLogin = getCookie("profile") && getCookie("token");
-
     if (isLogin) {
       router.replace("/");
     }
   }, []);
 
-  const handleSubmit = async () => {
-    try {
-      setIsLoading(true);
+  const handleSubmit = () => {
+    setIsLoading(true);
 
-      const connect = await axios.post("/api/login", {
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/v1/auth/login`, {
         email,
         password,
+      })
+      .then((res) => {
+        setIsLoading(false);
+        setError(null);
+
+        dispatch(profileReducer.setProfile(res?.data?.data));
+        dispatch(profileReducer.setToken(res?.data?.token));
+
+        setCookie("profile", JSON.stringify(res?.data?.data));
+        setCookie("token", res?.data?.token);
+
+        setSuccess("Login successful");
+
+        setTimeout(() => {
+          router.replace("/");
+        }, 1700);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+        setError(
+          err?.response?.data?.messages ?? "Something wrong in our server"
+        );
       });
-
-      setIsLoading(false);
-      setError(null);
-
-      // dispatch(auth.setProfile(connect?.data?.data))
-      // dispatch(auth.setToken(connect?.data?.token))
-
-      setCookie("isLogin", "true");
-      setCookie("profile", JSON.stringify(connect?.data?.data));
-      setCookie("token", connect?.data?.token);
-      setSuccess("Login successful");
-
-      setTimeout(() => {
-        router.replace("/");
-      }, 1700);
-    } catch (error) {
-      setIsLoading(false);
-      setError(
-        error?.response?.data?.messages ?? "Something wrong in our server"
-      );
-    }
   };
 
   return (

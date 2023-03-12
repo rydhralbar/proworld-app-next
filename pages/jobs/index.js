@@ -17,7 +17,7 @@ const Index = (props) => {
   const [data, setData] = useState(rows);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(Math.ceil(count / 12));
-  const [keyword, setKeyword] = useState("")
+  const [keyword, setKeyword] = useState("");
 
   const fetchPagination = async (_page) => {
     const jobList = await axios.get(
@@ -28,16 +28,20 @@ const Index = (props) => {
   };
 
   const fetchByKeyword = async () => {
-    if(keyword && keyword === ""){
-      const jobList = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=1&limit=12`)
+    if (keyword && keyword === "") {
+      const jobList = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=1&limit=12`
+      );
       const convert = jobList?.data;
       setData(convert?.data?.rows);
     } else {
-      const jobList = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?keyword=${keyword}`)
+      const jobList = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?keyword=${keyword}`
+      );
       const convert = jobList?.data;
       setData(convert?.data?.rows);
     }
-  }
+  };
 
   return (
     <>
@@ -66,12 +70,12 @@ const Index = (props) => {
                 borderTopRightRadius: "0 !important",
                 borderBottomRightRadius: "0 !important",
               }}
-              onChange={(event) => {
-                setKeyword(event.target.value)
+              onChange={(e) => {
+                setKeyword(e.target.value);
               }}
-              onKeyDown={(event) => {
-                if(event.key === "Enter"){
-                  fetchByKeyword()
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  fetchByKeyword();
                 }
               }}
             />
@@ -154,7 +158,9 @@ const Index = (props) => {
                     setPage(currentPage);
                   }}
                 >
-                  <a className="page-link" href="#">{currentPage}</a>
+                  <a className="page-link" href="#">
+                    {currentPage}
+                  </a>
                 </li>
               );
             })}
@@ -193,7 +199,6 @@ export const getStaticProps = async (context) => {
     },
   };
   revalidate: 3600;
-
 };
 
 // export const getServerSideProps = async ({ req, res }) => {

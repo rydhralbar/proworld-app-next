@@ -1,13 +1,25 @@
 import Footer from "@/components/organisms/Footer";
 import Navbar from "@/components/organisms/Navbar";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
-const Hire = () => {
+const Hire = (props) => {
+  const { profile } = props;
+
+  const [checkbox, setCheckbox] = useState("");
+
+  const user = profile?.data?.[0]?.user;
+
+  console.log(checkbox);
+
   return (
     <>
       <Head>
-        <title>Nama | Proworld</title>
+        <title>
+          {user?.fullname.charAt(0).toUpperCase() + user?.fullname.slice(1)} |
+          Proworld
+        </title>
       </Head>
       <main style={{ background: "#E5E5E5" }}>
         <Navbar />
@@ -16,7 +28,11 @@ const Hire = () => {
             <div className="row py-4">
               <div className="col-lg-8" style={{ background: "white" }}>
                 <div className="pt-3 ps-3">
-                  <h2>Contact Rizky Pilar</h2>
+                  <h2>
+                    Contact{" "}
+                    {user?.fullname.charAt(0).toUpperCase() +
+                      user?.fullname.slice(1)}
+                  </h2>
                   <p>
                     Contact Talent using the hire message below, a notification
                     will come to Talent&apos;s inbox.
@@ -32,8 +48,12 @@ const Hire = () => {
                           type="radio"
                           name="flexRadioDefault"
                           id="flexRadioDefault1"
+                          onChange={() => setCheckbox("Project")}
                         />
-                        <label className="form-check-label" for="flexRadioDefault1">
+                        <label
+                          className="form-check-label"
+                          for="flexRadioDefault1"
+                        >
                           Project
                         </label>
                       </div>
@@ -43,7 +63,7 @@ const Hire = () => {
                           type="radio"
                           name="flexRadioDefault"
                           id="flexRadioDefault2"
-                          checked
+                          onChange={() => setCheckbox("Cooperation")}
                         />
                         <label class="form-check-label" for="flexRadioDefault2">
                           Cooperation
@@ -103,12 +123,12 @@ const Hire = () => {
                     />
                   </div>
                   <a
-                      href="#"
-                      className="btn btn-primary mt-3"
-                      style={{ width: "70%", marginBottom: "35px" }}
-                    >
-                      Hire
-                    </a>
+                    href="#"
+                    className="btn btn-primary mt-3"
+                    style={{ width: "70%", marginBottom: "35px" }}
+                  >
+                    Hire
+                  </a>
                 </div>
               </div>
             </div>
@@ -118,6 +138,24 @@ const Hire = () => {
       <Footer />
     </>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  const {
+    query: { id },
+  } = context;
+
+  const jobList = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/v1/user/detail/${id}`
+  );
+
+  let convert = jobList?.data;
+
+  return {
+    props: {
+      profile: convert,
+    },
+  };
 };
 
 export default Hire;
