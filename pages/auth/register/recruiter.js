@@ -1,23 +1,23 @@
 import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import style from "../../../styles/pages/Register.module.scss";
 import LeftColumn from "@/components/molecules/LeftColumnLogReg";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 const RecruiterRegister = () => {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [company, setCompany] = React.useState("");
-  const [position, setPosition] = React.useState("");
-  const [phoneNumber, setPhoneNumber] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
-  const [success, setSuccess] = React.useState(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [position, setPosition] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const router = useRouter();
   const profile = useSelector((state) => state.auth);

@@ -56,13 +56,14 @@ const ProfileDetail = (props) => {
         >
           <div
             className={`container ${styles.containerContent}`}
-            style={{ background: "white" }}
+            style={{ background: "white", borderRadius: "4px" }}
           >
             <div
-              className="rounded-1"
               style={{
                 backgroundColor: "#5e50a1",
                 height: "210px",
+                borderTopRightRadius: "4px",
+                borderTopLeftRadius: "4px",
               }}
             >
               <div>
@@ -127,7 +128,10 @@ const ProfileDetail = (props) => {
                   {skills.length > 0 ? (
                     <div className="row">
                       {skills.map((item, key) => (
-                        <div className="col-5" key={key}>
+                        <div
+                          style={{ flex: "0 0 auto", width: "31%" }}
+                          key={key}
+                        >
                           <span
                             className={"badge bg-warning"}
                             style={{

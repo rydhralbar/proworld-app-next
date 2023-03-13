@@ -13,9 +13,9 @@ import { setCookie } from "cookies-next";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
-  const [success, setSuccess] = React.useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const router = useRouter();
   const dispatch = useDispatch();
