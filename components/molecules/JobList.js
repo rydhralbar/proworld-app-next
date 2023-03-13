@@ -6,7 +6,12 @@ import { TfiLocationPin } from "react-icons/tfi";
 const JobList = ({ item }) => {
   return (
     <>
-      <Link href={`/jobs/detail/${item?.id}`}>
+      <Link
+        href={`/jobs/detail/${item?.id}`}
+        onClick={() => {
+          window.scrollTo(0, 0);
+        }}
+      >
         <img
           src={item?.["user.photo_profile"]}
           alt="Profile"
