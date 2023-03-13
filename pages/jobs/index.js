@@ -14,34 +14,81 @@ const Index = (props) => {
     },
   } = props;
 
+  const limit = 12;
+
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState(rows);
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(Math.ceil(count / 12));
+  const [total, setTotal] = useState(Math.ceil(count / limit) ?? count / limit);
   const [keyword, setKeyword] = useState("");
+  const [sortBy, setSortBy] = useState(["id", "DESC"]);
+  const [errMsg, setErrMsg] = useState("");
 
-  const fetchPagination = async (_page) => {
-    const jobList = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=${_page}&limit=12`
-    );
-    const convert = jobList?.data;
-    setData(convert?.data?.rows);
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=${page}&limit=${limit}&order=${sortBy[1]}&sortBy=${sortBy[0]}`
+      )
+      .then((res) => {
+        setData(res?.data?.data?.rows);
+      })
+      .catch((err) => {
+        setErrMsg(err?.response?.data?.message);
+      })
+
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  const fetchPagination = (pagePosition) => {
+    setIsLoading(true);
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=${page}&limit=${limit}&sortBy=${sortBy[0]}&order=${sortBy[1]}`
+      )
+      .then((res) => {
+        setData(res?.data?.data?.rows);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
 
-  const fetchByKeyword = async () => {
-    if (keyword && keyword === "") {
-      const jobList = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=1&limit=12`
-      );
-      const convert = jobList?.data;
-      setData(convert?.data?.rows);
-    } else {
-      const jobList = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?keyword=${keyword}`
-      );
-      const convert = jobList?.data;
-      setData(convert?.data?.rows);
+  const searchFunc = () => {
+    console.log(sortBy);
+    console.log("searchFunc aman brok ");
+    setIsLoading(true);
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?keyword=${keyword}&page=${page}&limit=${limit}&order=${sortBy[1]}&sortBy=${sortBy[0]}`
+      )
+      .then((res) => {
+        console.log(res);
+        setData(res?.data?.data?.rows);
+        setTotal(Math.ceil(count / limit) ?? count / limit);
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrMsg(err?.response?.data?.message);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const sortFunc = (sortValue) => {
+    console.log("sortFunc aman");
+    if (sortValue === "1") {
+      setSortBy(["id", "DESC"]);
+    } else if (sortValue === "2") {
+      setSortBy(["id", "ASC"]);
+    } else if (sortValue === "3") {
+      setSortBy(["skills", "ASC"]);
+    } else if (sortValue === "4") {
+      setSortBy(["skills", "DESC"]);
     }
   };
+
+  useEffect(() => {
+    searchFunc();
+  }, [sortBy, page]);
 
   return (
     <>
@@ -75,27 +122,34 @@ const Index = (props) => {
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  fetchByKeyword();
+                  searchFunc();
                 }
               }}
             />
-            <select className="form-select" aria-label="Default select example">
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              onChange={(e) => {
+                sortFunc(e.target.value);
+                setPage(1);
+              }}
+            >
               <option selected disabled>
-                Categories
+                Sort by
               </option>
-              <option value="1">Sort by name</option>
-              <option value="2">Sort by Skill</option>
-              <option value="3">Sort by Location</option>
-              <option value="4">Sort by freelance</option>
-              <option value="5">Sort by fulltime</option>
+              <option value="1">Sort by newest</option>
+              <option value="2">Sort by oldest</option>
+              <option value="3">Sort by Skill (most)</option>
+              <option value="4">Sort by Skill (least)</option>
             </select>
             <button
               type="button"
               className="btn btn-primary"
               style={{ width: "12%" }}
-              onClick={fetchByKeyword}
+              onClick={searchFunc}
+              disabled={isLoading}
             >
-              Search
+              {isLoading ? "Loading..." : "Search"}
             </button>
           </div>
         </div>
@@ -105,80 +159,104 @@ const Index = (props) => {
             style={{ background: "transparent" }}
           >
             <div className="row" style={{ gap: "24px", paddingLeft: "16px" }}>
-              {rows?.map((item, key) => (
-                <React.Fragment key={key}>
-                  <div
-                    className="col-lg-2"
-                    style={{
-                      background: "white",
-                      width: "260px",
-                      height: "260px",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    <JobList item={item} />
-                  </div>
-                </React.Fragment>
-              ))}
+              {data.length > 0 ? (
+                data?.map((item, key) => (
+                  <React.Fragment key={key}>
+                    <div
+                      className="col-lg-2"
+                      style={{
+                        background: "white",
+                        width: "260px",
+                        height: "260px",
+                        borderRadius: "4px",
+                      }}
+                    >
+                      <JobList item={item} />
+                    </div>
+                  </React.Fragment>
+                ))
+              ) : (
+                <h3 className="mt-4" style={{ marginBottom: "150px" }}>
+                  Talent with keyword &apos;{keyword}&apos; doesn't exist
+                </h3>
+              )}
             </div>
           </div>
         </div>
 
-        <nav
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "60px",
-          }}
-        >
-          <ul className={`pagination gap-3 ${styles.paginationLayout}`}>
-            <li
-              className="page-item"
-              onClick={() => {
-                if (page > 1) {
-                  fetchPagination(page - 1);
-                  setPage(page - 1);
-                }
-              }}
-            >
-              <a className="page-link" href="#">
-                &laquo;
-              </a>
-            </li>
-            {[...new Array(total)].map((item, key) => {
-              let currentPage = ++key;
-              return (
-                <li
-                  className={`page-item ${
-                    page === currentPage ? "active" : ""
+        {data.length >= 1 && (
+          <nav
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "60px",
+            }}
+          >
+            <ul className={`pagination gap-3 ${styles.paginationLayout}`}>
+              <li
+                className="page-item"
+                onClick={() => {
+                  if (page > 1) {
+                    fetchPagination(page - 1);
+                    setPage(page - 1);
+                  }
+                }}
+              >
+                <a
+                  className={`page-link ${
+                    page === 1 ? "disabled text-grey" : "text-black"
                   }`}
-                  key={currentPage}
+                  href="#"
                   onClick={() => {
-                    fetchPagination(currentPage);
-                    setPage(currentPage);
+                    if (page > 1) fetchPagination(page - 1);
                   }}
                 >
-                  <a className="page-link" href="#">
-                    {currentPage}
-                  </a>
-                </li>
-              );
-            })}
-            <li
-              className="page-item"
-              onClick={() => {
-                if (page < total) {
-                  fetchPagination(page + 1);
-                  setPage(page + 1);
-                }
-              }}
-            >
-              <a className="page-link" href="#">
-                &raquo;
-              </a>
-            </li>
-          </ul>
-        </nav>
+                  &laquo;
+                </a>
+              </li>
+              {[...new Array(total)].map((item, key) => {
+                let currentPage = ++key;
+                return (
+                  <li
+                    className={`page-item ${
+                      page === currentPage ? "active text-white" : ""
+                    }`}
+                    key={currentPage}
+                    onClick={() => {
+                      // fetchPagination(currentPage);
+                      setPage(currentPage);
+                    }}
+                  >
+                    <a className="page-link text-black" href="#">
+                      {currentPage}
+                    </a>
+                  </li>
+                );
+              })}
+              <li
+                className="page-item"
+                onClick={() => {
+                  if (page < total) {
+                    fetchPagination(page + 1);
+                    setPage(page + 1);
+                  }
+                }}
+              >
+                <a
+                  className={`page-link ${
+                    page === total ? "disabled" : "text-black"
+                  } text-black`}
+                  href="#"
+                  onClick={() => {
+                    if (page < total) fetchPagination(page + 1);
+                  }}
+                >
+                  &raquo;
+                </a>
+              </li>
+            </ul>
+          </nav>
+        )}
 
         <Footer />
       </main>
@@ -186,9 +264,9 @@ const Index = (props) => {
   );
 };
 
-export const getStaticProps = async (context) => {
+export const getServerSideProps = async (context) => {
   const jobList = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=1&limit=12`
+    `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=1&limit=12&order=DESC&sortBy=id`
   );
 
   const convert = jobList?.data;
@@ -198,7 +276,6 @@ export const getStaticProps = async (context) => {
       jobLists: convert,
     },
   };
-  revalidate: 3600;
 };
 
 // export const getServerSideProps = async ({ req, res }) => {

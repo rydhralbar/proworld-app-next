@@ -21,8 +21,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.auth);
 
-  console.log(profile);
-  const isLogin = false;
+  const isLogin = profile?.isLogin?.payload;
 
   useEffect(() => {
     if (isLogin) {
@@ -44,6 +43,7 @@ const Login = () => {
 
         dispatch(profileReducer.setProfile(res?.data?.data));
         dispatch(profileReducer.setToken(res?.data?.token));
+        dispatch(profileReducer.setIsLogin(true));
 
         setCookie("profile", JSON.stringify(res?.data?.data));
         setCookie("token", res?.data?.token);
@@ -56,7 +56,6 @@ const Login = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log(err);
         setError(
           err?.response?.data?.messages ?? "Something wrong in our server"
         );

@@ -23,11 +23,17 @@ const NavbarLogged = () => {
     >
       <div className="container">
         <Link href="/">
-          <Image src={proworldLogo} className={styles.appLogo} alt="Logo" />
+          <Image
+            unoptimized={true}
+            src={proworldLogo}
+            className={styles.appLogo}
+            alt="Logo"
+          />
         </Link>
         <div className="d-flex">
           <div>
             <Image
+              unoptimized={true}
               src={bellLogo}
               alt="Profile"
               style={{
@@ -38,6 +44,7 @@ const NavbarLogged = () => {
               }}
             />
             <Image
+              unoptimized={true}
               src={mailLogo}
               alt="Profile"
               style={{
@@ -130,7 +137,12 @@ const NavbarGuest = () => (
   >
     <div className="container">
       <Link href="/">
-        <Image src={proworldLogo} className={styles.appLogo} alt="Logo" />
+        <Image
+          unoptimized={true}
+          src={proworldLogo}
+          className={styles.appLogo}
+          alt="Logo"
+        />
       </Link>
       <div>
         <Link href="/auth">

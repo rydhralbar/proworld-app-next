@@ -5,6 +5,7 @@ import React from "react";
 import style from "../../../styles/pages/Register.module.scss";
 import LeftColumn from "@/components/molecules/LeftColumnLogReg";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 const RecruiterRegister = () => {
   const [name, setName] = React.useState("");
@@ -19,6 +20,15 @@ const RecruiterRegister = () => {
   const [success, setSuccess] = React.useState(null);
 
   const router = useRouter();
+  const profile = useSelector((state) => state.auth);
+
+  const isLogin = profile?.isLogin?.payload;
+
+  useEffect(() => {
+    if (isLogin) {
+      router.replace("/");
+    }
+  }, []);
 
   const handleSubmit = async () => {
     try {

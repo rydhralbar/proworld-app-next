@@ -5,8 +5,20 @@ import styles from "../../styles/pages/Auth.module.scss";
 import { useRouter } from "next/router";
 import LeftColumn from "@/components/molecules/LeftColumnLogReg";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const Recruiter = () => {
+  const router = useRouter();
+  const profile = useSelector((state) => state.auth);
+
+  const isLogin = profile?.isLogin?.payload;
+
+  useEffect(() => {
+    if (isLogin) {
+      router.replace("/");
+    }
+  }, []);
+
   return (
     <>
       <Head>

@@ -64,17 +64,20 @@ const Home = () => {
             {/* <!-- side right --> */}
             <div className={`col-lg-6 ${styles.backgroundGrid}`}>
               <Image
+                unoptimized={true}
                 src={mainImage}
                 className={styles.mainBackground}
                 alt="Developer"
               />
               {/* <!-- background header --> */}
               <Image
+                unoptimized={true}
                 src={overlayBackground}
                 className={styles.background1}
                 alt="Background"
               />
               <Image
+                unoptimized={true}
                 src={polkadot}
                 className={styles.background2}
                 alt="Polkadot"

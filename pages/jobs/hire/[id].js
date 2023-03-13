@@ -1,17 +1,100 @@
 import Footer from "@/components/organisms/Footer";
 import Navbar from "@/components/organisms/Navbar";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 const Hire = (props) => {
   const { profile } = props;
 
-  const [checkbox, setCheckbox] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [purpose, setPurpose] = useState("");
+  const [nameRecruiter, setNameRecruiter] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [description, setDescription] = useState("");
+
+  const router = useRouter();
+  const profileStalker = useSelector((state) => state.auth);
+
+  const isRecruiter = profileStalker?.profile?.payload?.recruiter_id;
+  const userId = profileStalker?.profile?.payload?.user_id;
+  const token = profileStalker?.token?.payload;
+
+  useEffect(() => {
+    if (!isRecruiter) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops..",
+        text: "You are not allowed on this page",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#5E50A1",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          router.replace("/jobs");
+        }
+      });
+    }
+  }, []);
+
+  const addInvitation = () => {
+    setIsLoading(true);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/invitation`,
+        {
+          user_id: userId,
+          purpose,
+          fullname: nameRecruiter,
+          email,
+          phone_number: phoneNumber,
+          description,
+        },
+        config
+      )
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          title: "Nice",
+          text: "Invitation added successful",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#5E50A1",
+        }).then((_res) => {
+          if (_res.isConfirmed) {
+            router.replace("/jobs");
+          }
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops..",
+          text:
+            err?.response?.data?.message?.fullname?.message ??
+            err?.response?.data?.message?.email?.message ??
+            err?.response?.data?.message?.user_id?.message ??
+            err?.response?.data?.message?.purpose?.message ??
+            err?.response?.data?.message?.phone_number?.message ??
+            err?.response?.data?.message?.description?.message ??
+            "There was an error from server",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#5E50A1",
+        });
+      })
+      .finally(() => setIsLoading(false));
+  };
 
   const user = profile?.data?.[0]?.user;
-
-  console.log(checkbox);
 
   return (
     <>
@@ -48,7 +131,7 @@ const Hire = (props) => {
                           type="radio"
                           name="flexRadioDefault"
                           id="flexRadioDefault1"
-                          onChange={() => setCheckbox("Project")}
+                          onChange={() => setPurpose("Project")}
                         />
                         <label
                           className="form-check-label"
@@ -63,7 +146,7 @@ const Hire = (props) => {
                           type="radio"
                           name="flexRadioDefault"
                           id="flexRadioDefault2"
-                          onChange={() => setCheckbox("Cooperation")}
+                          onChange={() => setPurpose("Cooperation")}
                         />
                         <label class="form-check-label" for="flexRadioDefault2">
                           Cooperation
@@ -81,7 +164,7 @@ const Hire = (props) => {
                       id="name-input"
                       aria-describedby="nameHelp"
                       placeholder="Type your name..."
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => setNameRecruiter(e.target.value)}
                     />
                   </div>
                   <div className="mb-3 pt-2" style={{ width: "70%" }}>
@@ -122,13 +205,37 @@ const Hire = (props) => {
                       onChange={(e) => setDescription(e.target.value)}
                     />
                   </div>
-                  <a
+                  <button
                     href="#"
-                    className="btn btn-primary mt-3"
+                    className="btn btn-primary mt-3 "
                     style={{ width: "70%", marginBottom: "35px" }}
+                    disabled={isLoading}
+                    onClick={() => {
+                      Swal.fire({
+                        title: "Are you sure?",
+                        text: "The talent will accept an invitation, and you will be contacted if he agrees",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, i am sure!",
+                        cancelButtonText: "No, cancel!",
+                        reverseButtons: true,
+                      }).then((res) => {
+                        if (res.isConfirmed) {
+                          addInvitation();
+                        } else if (res.dismiss === Swal.DismissReason.cancel) {
+                          Swal.fire({
+                            title: "Cancelled",
+                            text: "Your invitation was not sent",
+                            icon: "error",
+                            confirmButtonText: "OK",
+                            confirmButtonColor: "#5E50A1",
+                          });
+                        }
+                      });
+                    }}
                   >
-                    Hire
-                  </a>
+                    {isLoading ? "Loading..." : "Hire"}
+                  </button>
                 </div>
               </div>
             </div>

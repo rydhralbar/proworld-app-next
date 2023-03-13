@@ -12,6 +12,7 @@ const Logout = () => {
     setTimeout(() => {
       dispatch(profileReducer.setProfile(null));
       dispatch(profileReducer.setToken(null));
+      dispatch(profileReducer.setIsLogin(false));
 
       deleteCookie("profile");
       deleteCookie("token");
