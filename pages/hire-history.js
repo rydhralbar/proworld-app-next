@@ -153,7 +153,7 @@ const HireHistory = (props) => {
   );
 };
 
-export const getStaticProps = async ({ req, res }) => {
+export const getServerSideProps = async ({ req, res }) => {
   const token = getCookie("token", { req, res });
   const config = {
     headers: {

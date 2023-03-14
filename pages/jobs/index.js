@@ -268,7 +268,7 @@ const Index = (props) => {
   );
 };
 
-export const getStaticProps = async (context) => {
+export const getServerSideProps = async (context) => {
   const jobList = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=1&limit=12&order=DESC&sortBy=id`
   );
