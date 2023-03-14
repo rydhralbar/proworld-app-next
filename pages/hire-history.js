@@ -171,7 +171,6 @@ export const getServerSideProps = async ({ req, res }) => {
     props: {
       hireHistory: convertHistory,
     },
-    revalidate: 360,
   };
 };
 

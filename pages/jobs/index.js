@@ -279,7 +279,6 @@ export const getServerSideProps = async (context) => {
     props: {
       jobLists: convert,
     },
-    revalidate: 360,
   };
 };
 
