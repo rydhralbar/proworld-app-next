@@ -48,7 +48,7 @@ const RecruiterRegister = () => {
 
         setTimeout(() => {
           router.replace("/auth/login");
-        }, 1800);
+        }, 1400);
       } else {
         setError("Confirm your password is wrong");
       }

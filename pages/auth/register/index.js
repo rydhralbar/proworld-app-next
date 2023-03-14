@@ -44,7 +44,7 @@ const TalentRegister = () => {
 
       setTimeout(() => {
         router.replace("/auth/login");
-      }, 1800);
+      }, 1400);
     } catch (error) {
       setIsLoading(false);
       setError(

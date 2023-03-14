@@ -52,7 +52,7 @@ const Login = () => {
 
         setTimeout(() => {
           router.replace("/");
-        }, 1700);
+        }, 1400);
       })
       .catch((err) => {
         setIsLoading(false);
