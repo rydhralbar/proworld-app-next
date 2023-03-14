@@ -10,19 +10,21 @@ import moment from "moment";
 const HireHistory = (props) => {
   const { hireHistory } = props;
 
-  const profile = useSelector((state) => state.auth);
+  console.log({ hireHistory });
 
-  const user = profile?.profile?.payload;
-  const token = profile?.token?.payload;
-  const isLogin = profile?.isLogin?.payload;
+  // const profile = useSelector((state) => state.auth);
+
+  // const user = profile?.profile?.payload;
+  // const token = profile?.token?.payload;
+  // const isLogin = profile?.isLogin?.payload;
 
   return (
     <>
       <Head>
         <title>Hire History | Proworld</title>
       </Head>
-      <main style={{ background: "rgb(229, 229, 229)" }}>
-        <Navbar />
+      <Navbar />
+      <main style={{ background: "rgb(229, 229, 229)", overflowX: "hidden" }}>
         <div className="container">
           <div className="row pb-5">
             <div className="col">
@@ -52,7 +54,7 @@ const HireHistory = (props) => {
 
                 <div
                   className="card-body"
-                  style={hireHistory?.length < 1 && { height: "200px" }}
+                  style={{ height: hireHistory?.length < 1 && "200px" }}
                 >
                   {hireHistory?.length < 1 && (
                     <div
@@ -147,7 +149,6 @@ const HireHistory = (props) => {
           </div>
         </div>
       </main>
-
       <Footer />
     </>
   );
@@ -155,23 +156,33 @@ const HireHistory = (props) => {
 
 export const getServerSideProps = async ({ req, res }) => {
   const token = getCookie("token", { req, res });
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  console.log(token);
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+      },
+    };
+  } else {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-  const hireHistories = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/v1/user/profile`,
-    config
-  );
-  const convertHistory = hireHistories?.data?.data?.[0]?.hire_histories;
+    const hireHistories = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/v1/user/profile`,
+      config
+    );
+    const convertHistory = hireHistories?.data?.data?.[0]?.hire_histories;
+    console.log(convertHistory[0]);
 
-  return {
-    props: {
-      hireHistory: convertHistory,
-    },
-  };
+    return {
+      props: {
+        hireHistory: convertHistory,
+      },
+    };
+  }
 };
 
 export default HireHistory;

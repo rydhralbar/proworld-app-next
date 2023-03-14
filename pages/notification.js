@@ -53,7 +53,7 @@ const Notification = (props) => {
 
                 <div
                   className="card-body"
-                  style={hireHistory?.length < 1 && { height: "250px" }}
+                  style={{ height: hireHistory?.length < 1 && "250px" }}
                 >
                   {hireHistory?.length < 1 && (
                     <div
