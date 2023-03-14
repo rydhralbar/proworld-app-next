@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import LeftColumn from "@/components/molecules/LeftColumnLogReg";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { getCookie } from "cookies-next";
 
 const Recruiter = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ const Recruiter = () => {
   const isLogin = profile?.isLogin?.payload;
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && getCookie("profile") && getCookie("token")) {
       router.replace("/");
     }
   }, []);

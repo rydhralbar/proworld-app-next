@@ -25,7 +25,8 @@ const JobList = ({ item }) => {
             color: "black",
           }}
         >
-          {item?.["user.fullname"]}
+          {item?.["user.fullname"]?.charAt(0).toUpperCase() +
+            item?.["user.fullname"]?.slice(1)}
         </h2>
       </Link>
       <p
@@ -36,14 +37,16 @@ const JobList = ({ item }) => {
           color: "#9EA0A5",
         }}
       >
-        {item?.job}
+        {item?.job?.charAt(0).toUpperCase() + item?.job?.slice(1)}
       </p>
       <div
         className="d-flex"
         style={{ marginBottom: "-6px", paddingLeft: "17px", gap: "8px" }}
       >
         <TfiLocationPin />
-        <p style={{ marginTop: "-5px" }}>{item?.domicile} </p>
+        <p style={{ marginTop: "-5px" }}>
+          {item?.domicile?.charAt(0).toUpperCase() + item?.domicile?.slice(1)}{" "}
+        </p>
       </div>
       <div className="d-flex" style={{ paddingLeft: "17px" }}>
         {item?.skills?.slice(0, 2).map((_item) => (

@@ -6,6 +6,7 @@ import style from "../../../styles/pages/Register.module.scss";
 import LeftColumn from "@/components/molecules/LeftColumnLogReg";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import { getCookie } from "cookies-next";
 
 const RecruiterRegister = () => {
   const [name, setName] = useState("");
@@ -25,7 +26,7 @@ const RecruiterRegister = () => {
   const isLogin = profile?.isLogin?.payload;
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && getCookie("profile") && getCookie("token")) {
       router.replace("/");
     }
   }, []);

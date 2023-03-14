@@ -8,6 +8,9 @@ import mailLogo from "@/public/images/mail-logo.png";
 import bellLogo from "@/public/images/bell-logo.png";
 import { getCookie } from "cookies-next";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { BsFillBellFill } from "react-icons/bs";
+import { MdWorkHistory } from "react-icons/md";
 
 const NavbarLogged = () => {
   const profile = useSelector((state) => state.auth);
@@ -32,28 +35,73 @@ const NavbarLogged = () => {
         </Link>
         <div className="d-flex">
           <div>
-            <Image
-              unoptimized={true}
-              src={bellLogo}
-              alt="Profile"
-              style={{
-                width: "29px",
-                height: "27px",
-                marginTop: "18px",
-                marginRight: "36px",
-              }}
-            />
-            <Image
-              unoptimized={true}
-              src={mailLogo}
-              alt="Profile"
-              style={{
-                width: "35px",
-                height: "30px",
-                marginTop: "17px",
-                marginRight: "29px",
-              }}
-            />
+            {user?.recruiter_id ? (
+              <BsFillBellFill
+                style={{
+                  width: "29px",
+                  height: "27px",
+                  marginTop: "18px",
+                  marginRight: "36px",
+                  color: "grey",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops..",
+                    text: "This page is currently under maintenance!",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#5E50A1",
+                  });
+                }}
+              />
+            ) : (
+              <Link href="/notification">
+                <BsFillBellFill
+                  style={{
+                    width: "29px",
+                    height: "27px",
+                    marginTop: "18px",
+                    marginRight: "36px",
+                    color: "grey",
+                  }}
+                />
+              </Link>
+            )}
+
+            {user?.recruiter_id ? (
+              <Link href="/hire-history">
+                <MdWorkHistory
+                  style={{
+                    width: "35px",
+                    height: "30px",
+                    marginTop: "17px",
+                    marginRight: "29px",
+                    color: "grey",
+                  }}
+                />
+              </Link>
+            ) : (
+              <MdWorkHistory
+                style={{
+                  width: "35px",
+                  height: "30px",
+                  marginTop: "17px",
+                  marginRight: "29px",
+                  color: "grey",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops..",
+                    text: "This page is currently under maintenance!",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#5E50A1",
+                  });
+                }}
+              />
+            )}
           </div>
 
           <div className="d-flex align-items-end">

@@ -8,7 +8,7 @@ import LeftColumn from "@/components/molecules/LeftColumnLogReg";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import * as profileReducer from "@/stores/reducer/auth";
-import { setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ const Login = () => {
   const isLogin = profile?.isLogin?.payload;
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && getCookie("profile") && getCookie("token")) {
       router.replace("/");
     }
   }, []);

@@ -40,7 +40,6 @@ const EditProfile = (props) => {
   const userProfile = useSelector((state) => state.auth);
   const token = userProfile?.token?.payload;
 
-  // const [skill, setSkill] = useState("");
   const [skillsEntered, setSkillsEntered] = useState([]);
   const [skillsValue, setSkillsValue] = useState("");
 
@@ -132,7 +131,6 @@ const EditProfile = (props) => {
           config
         )
         .then((res) => {
-          console.log(res);
           Swal.fire({
             icon: "success",
             title: "Nice",
@@ -147,7 +145,6 @@ const EditProfile = (props) => {
           });
         })
         .catch((err) => {
-          console.log(err);
           Swal.fire({
             icon: "error",
             title: "Oops..",
@@ -401,25 +398,23 @@ const EditProfile = (props) => {
                         disabled={!edit}
                       />
                     </div>
+
+                    <div className="mb-3">
+                      <label htmlFor="workplace-input" className="form-label">
+                        Workplace
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="workplace-input"
+                        aria-describedby="nameHelp"
+                        placeholder="Type your workplace..."
+                        onChange={(e) => setWorkplace(e.target.value)}
+                        disabled={!edit}
+                      />
+                    </div>
                     {isTalent && (
                       <>
-                        <div className="mb-3">
-                          <label
-                            htmlFor="workplace-input"
-                            className="form-label"
-                          >
-                            Workplace
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="workplace-input"
-                            aria-describedby="nameHelp"
-                            placeholder="Type your workplace..."
-                            onChange={(e) => setWorkplace(e.target.value)}
-                            disabled={!edit}
-                          />
-                        </div>
                         <div className="mb-3">
                           <label
                             htmlFor="description-input"

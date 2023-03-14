@@ -75,7 +75,6 @@ const Hire = (props) => {
         });
       })
       .catch((err) => {
-        console.log(err);
         Swal.fire({
           icon: "error",
           title: "Oops..",

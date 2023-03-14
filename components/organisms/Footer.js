@@ -26,8 +26,26 @@ const Footer = () => {
           <li style={{ marginLeft: "3.8%", marginRight: "54.6%" }}>
             2023 Proworld. All right reserved
           </li>
-          <li style={{ marginRight: "6%" }}>Phone</li>
-          <li>Email</li>
+          <li style={{ marginRight: "6%" }}>
+            <a
+              target="_blank"
+              href="https://github.com/rydhralbar"
+              rel="noopener noreferrer"
+              style={{ color: "white" }}
+            >
+              Github
+            </a>
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="mailto:albarrriyadh1112@gmail.com"
+              rel="noopener noreferrer"
+              style={{ color: "white" }}
+            >
+              Email
+            </a>
+          </li>
         </ul>
       </div>
     </footer>

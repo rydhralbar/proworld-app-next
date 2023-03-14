@@ -6,6 +6,7 @@ import Navbar from "@/components/organisms/Navbar";
 import Footer from "@/components/organisms/Footer";
 import JobList from "@/components/molecules/JobList";
 import { getCookie } from "cookies-next";
+import Swal from "sweetalert2";
 
 const Index = (props) => {
   const {
@@ -49,32 +50,35 @@ const Index = (props) => {
       .then((res) => {
         setData(res?.data?.data?.rows);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops..",
+          text: err?.response?.data?.message,
+          confirmButtonText: "OK",
+          confirmButtonColor: "#5E50A1",
+        });
+      })
       .finally(() => setIsLoading(false));
   };
 
   const searchFunc = () => {
-    console.log(sortBy);
-    console.log("searchFunc aman brok ");
     setIsLoading(true);
     axios
       .get(
         `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?keyword=${keyword}&page=${page}&limit=${limit}&order=${sortBy[1]}&sortBy=${sortBy[0]}`
       )
       .then((res) => {
-        console.log(res);
         setData(res?.data?.data?.rows);
         setTotal(Math.ceil(count / limit) ?? count / limit);
       })
       .catch((err) => {
-        console.log(err);
         setErrMsg(err?.response?.data?.message);
       })
       .finally(() => setIsLoading(false));
   };
 
   const sortFunc = (sortValue) => {
-    console.log("sortFunc aman");
     if (sortValue === "1") {
       setSortBy(["id", "DESC"]);
     } else if (sortValue === "2") {
@@ -139,8 +143,8 @@ const Index = (props) => {
               </option>
               <option value="1">Sort by newest</option>
               <option value="2">Sort by oldest</option>
-              <option value="3">Sort by Skill (most)</option>
-              <option value="4">Sort by Skill (least)</option>
+              <option value="3">Sort by Skill (least)</option>
+              <option value="4">Sort by Skill (most)</option>
             </select>
             <button
               type="button"
@@ -264,7 +268,7 @@ const Index = (props) => {
   );
 };
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async (context) => {
   const jobList = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=1&limit=12&order=DESC&sortBy=id`
   );
@@ -275,6 +279,7 @@ export const getServerSideProps = async (context) => {
     props: {
       jobLists: convert,
     },
+    revalidate: 360,
   };
 };
 
@@ -282,8 +287,6 @@ export const getServerSideProps = async (context) => {
 //   const jobList = await axios.get(
 //     `${process.env.NEXT_PUBLIC_WEB}/api/talentData`
 //   );
-
-//   console.log(jobList?.data)
 
 //   const convert = jobList?.data;
 

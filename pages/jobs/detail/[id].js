@@ -109,8 +109,18 @@ const ProfileDetail = (props) => {
                     profile?.data?.[0]?.description?.slice(1)}
                 </p>
               </div>
+              <div className="d-flex">
+                <h6 className="me-1" style={{ color: "rgb(158, 160, 165)" }}>
+                  {" "}
+                  Lasted work at
+                </h6>
+                <h6>
+                  {profile?.data?.[0]?.company.charAt(0).toUpperCase() +
+                    profile?.data?.[0]?.company.slice(1)}
+                </h6>
+              </div>
               <div>
-                {isRecruiter && (
+                {isRecruiter !== 0 && (
                   <button
                     className="btn btn-primary"
                     style={{ width: "33%", height: "55px", marginTop: "12px" }}
@@ -123,7 +133,7 @@ const ProfileDetail = (props) => {
                 )}
               </div>
               <div>
-                <h2 style={{ marginTop: "40px" }}>Skill</h2>
+                <h2 style={{ marginTop: "30px" }}>Skill</h2>
                 <div className="d-flex" style={{ width: "90%" }}>
                   {skills.length > 0 ? (
                     <div className="row">
@@ -149,7 +159,9 @@ const ProfileDetail = (props) => {
                     </div>
                   ) : (
                     <h5 className="mt-4">
-                      {talent?.fullname} doesn't have any skills yet
+                      {talent?.fullname?.charAt(0).toUpperCase() +
+                        talent?.fullname.slice(1)}{" "}
+                      doesn't have any skills yet
                     </h5>
                   )}
                 </div>
@@ -296,7 +308,7 @@ const ProfileDetail = (props) => {
                           </div>
                         ))
                       ) : (
-                        <h4 className="mt-5">
+                        <h4 className="mt-5 mb-5">
                           {talent?.fullname?.charAt(0).toUpperCase() +
                             talent?.fullname.slice(1)}{" "}
                           doesn't have a portfolio yet
@@ -345,7 +357,7 @@ const ProfileDetail = (props) => {
                         </>
                       ))
                     ) : (
-                      <h4 className="mt-5">
+                      <h4 className="mt-5 mb-5">
                         {talent?.fullname?.charAt(0).toUpperCase() +
                           talent?.fullname.slice(1)}{" "}
                         has no work experience yet
