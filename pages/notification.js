@@ -47,7 +47,7 @@ const Notification = (props) => {
                       marginLeft: 0,
                     }}
                   >
-                    Notification
+                    Hire notification
                   </h3>
                 </div>
 
