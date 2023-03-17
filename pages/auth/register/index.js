@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "../../../styles/pages/Register.module.scss";
 import LeftColumn from "@/components/molecules/LeftColumnLogReg";
 import { useRouter } from "next/router";
