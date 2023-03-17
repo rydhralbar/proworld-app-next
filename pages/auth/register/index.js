@@ -48,7 +48,12 @@ const TalentRegister = () => {
     } catch (error) {
       setIsLoading(false);
       setError(
-        error?.response?.data?.messages ?? "Something wrong in our server"
+        error?.response?.data?.message?.fullname?.message ??
+          error?.response?.data?.message?.email?.message ??
+          error?.response?.data?.message?.phone_number?.message ??
+          error?.response?.data?.message?.password?.message ??
+          error?.response?.data?.message ??
+          "Something wrong in our server"
       );
     }
   };

@@ -10,8 +10,6 @@ import moment from "moment";
 const HireHistory = (props) => {
   const { hireHistory } = props;
 
-  console.log({ hireHistory });
-
   // const profile = useSelector((state) => state.auth);
 
   // const user = profile?.profile?.payload;
@@ -156,7 +154,6 @@ const HireHistory = (props) => {
 
 export const getServerSideProps = async ({ req, res }) => {
   const token = getCookie("token", { req, res });
-  console.log(token);
   if (!token) {
     return {
       redirect: {
@@ -175,7 +172,6 @@ export const getServerSideProps = async ({ req, res }) => {
       config
     );
     const convertHistory = hireHistories?.data?.data?.[0]?.hire_histories;
-    console.log(convertHistory[0]);
 
     return {
       props: {
