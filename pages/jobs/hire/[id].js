@@ -24,8 +24,6 @@ const Hire = (props) => {
   const userId = profileStalker?.profile?.payload?.user_id;
   const token = profileStalker?.token?.payload;
 
-  console.log(router);
-
   useEffect(() => {
     if (!isRecruiter) {
       Swal.fire({

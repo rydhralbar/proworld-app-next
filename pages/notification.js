@@ -14,8 +14,6 @@ const Notification = (props) => {
 
   const { hireHistory } = props;
 
-  console.log(hireHistory);
-
   let sendAt = hireHistory[0]?.createdAt.slice(0, 10);
 
   const profile = useSelector((state) => state.auth);
@@ -24,9 +22,6 @@ const Notification = (props) => {
 
   // const invitation = hireHistory?.filter((item) => item?.user_id === userId);
   const invitation = hireHistory?.[0]?.hire_histories;
-  console.log(invitation);
-
-  console.log(userId);
 
   return (
     <>
