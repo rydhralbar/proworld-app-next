@@ -24,6 +24,8 @@ const Hire = (props) => {
   const userId = profileStalker?.profile?.payload?.user_id;
   const token = profileStalker?.token?.payload;
 
+  console.log(router);
+
   useEffect(() => {
     if (!isRecruiter) {
       Swal.fire({
@@ -52,7 +54,7 @@ const Hire = (props) => {
       .post(
         `${process.env.NEXT_PUBLIC_API_URL}/v1/user/invitation`,
         {
-          user_id: userId,
+          user_id: router?.query?.id,
           purpose,
           fullname: nameRecruiter,
           email,

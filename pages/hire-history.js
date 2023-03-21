@@ -82,7 +82,7 @@ const HireHistory = (props) => {
                                 marginLeft: 0,
                               }}
                             >
-                              From :
+                              Sender :
                             </h5>
                             <h5
                               style={{

@@ -286,7 +286,7 @@ const EditProfile = (props) => {
                         unoptimized={true}
                         src={editLogo}
                         alt="Edit"
-                        style={{ marginLeft: "35%" }}
+                        style={{ marginLeft: "35%", cursor: "pointer" }}
                         onClick={() => setEdit(true)}
                       />
                     )}
@@ -339,7 +339,10 @@ const EditProfile = (props) => {
                 </div>
               </div>
 
-              <div className="col-lg-8" style={{ background: "white" }}>
+              <div
+                className="col-lg-8"
+                style={{ background: "white", borderRadius: "5px" }}
+              >
                 <div
                   style={{
                     paddingLeft: "25px",

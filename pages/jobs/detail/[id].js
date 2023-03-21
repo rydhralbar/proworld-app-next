@@ -284,8 +284,18 @@ const ProfileDetail = (props) => {
                       {portfolio.length > 0 ? (
                         portfolio.map((item, key) => (
                           <div className="col-3" key={key}>
+                            {/* <a
+                              target="_blank"
+                              href={item?.link}
+                              rel="noopener noreferrer"
+                              style={{ color: "white" }}
+                            > */}
                             <img
-                              src={item?.photo}
+                              src={
+                                item?.photo === "belanja app"
+                                  ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAeFBMVEUAAAD////8/Pzy8vLg4OApKSmzs7M/Pz8iIiLt7e3X19f19fVXV1c7Ozvw8PCHh4c1NTWVlZVlZWVwcHBgYGDAwMDIyMhRUVGLi4vOzs57e3tJSUlbW1t3d3dERESkpKQMDAwZGRmfn58uLi4UFBSUlJStra0dHR2J6hNlAAAE30lEQVR4nO2d6XayMBCGCeCC4IbFtVVrv7b3f4cfSFd7lHkhMCaZ53fLyTyd7Eu9+NETSCSxJ67IJNwFEARBEARBENqlt0/Sp+l0vV0sksFseOQuz70yeOpvQl/9JAhH2Tzdv3MX7b7YT5ehuko06qdj7iLeCavDDVFKlcnmh4fkH3dJuRm/3jT105eKsvTIXV5G0qV/W9OFLhUdVtxlZmJLSKq/jBbc5WZgGtVRVaRYOOUue8esc1U+sQ5e6Mp/K3JJVxp+pUmt3MqzK+WOoSNmyzqSLsmG3HF0wTrW4Uqp+Ik7ktbpbeo2Vhfk38i4g2mZbazJVdkvWj0LynRo+kFs7xh1HNbrAK+S56itvWIa59FptVV8bMsdVitMP8PTjI0D1FMrpgrsmyy+taUqr9i2nT4oXOltr37Iinvc4Wnl0Iamb0Lu+HQybymrvjhwR6iPbWtt+wcWNVuJr3QPsC5dWVMRX6KW8+rMK3eYeth04UrFR+44dTDvwFTBiTtQDeyKJkVSi8aoA08la+5QGzPtJKvORNyxNuV50p0s9cAdbUNObQ/dv/FVnzvaZgw1beTQCLjDbcapw0qoDK+Hxw4Tq/irGD2dbn0C/cuWr0bcATeBPsYquoG/XlHTJo9LZ0C0ha14eVjsxsPeePBwymqdsjH4IuCJHmWxF3/RPK/6qCqjt8WQmU728vf3h/BUydzJ9DsxwmLH4UqnjybXstsINbIgt9Dh87VvZFgjb+56KTktoquuPC9AXBk8l94QIwxuHeFLIVnBsavgdBMQ+n6/8hxMhOx1xKYenXymRFd9fG+OLLTGs25i086OFp8/uP2ZITKQr/rY3ULqDH21qfoOcrfAWFlTUnTVp6uQ0YNv6hlT2hZYdXgHQJaxbVaxolzNpPI7W0SWqWePegMC++p680BWlY+zbgxvnYDYq56pzlPLGQCyzJ3uaAKRZe5EWhMroIG3/TJPJaTx2gfmLv5pAlkANHhZWQ/IdMfea080HhV9Jm34/n1z6M8ZGL7JqgGgeffVnLu0vKzornKsOQxfiz2wt+M7Pn5PkMtRvtujrHWhii7L2JU/HWSYK4O3oxuTTqAqqFxu3qFTDsWSa/XOh60sJoir8g7HnrvQPLxn8EE2X71xl5qHBXYYpHTl6LJfv9apXScr4SysdenVxocwKnkMyq4NxMkGa1Hv2LyTS+/bOg9lODp0T/0a7ZWjrvaxtFdkRucxAzAfPP+o+Zd964De4zwn4cTgCygNGKN39AtXG0ff1e/jHaHvZhX0vBf8HufG2ZVR5ERDed3H1bTy6NcxPlmaenpUAz1sWWZi/7PKN3iEXLnxYPdVgKeQnN+l95AX4h1u2UuAC76u55V3pB8scnKN4Rc94pA0nxLtuMvKzoyYVg5vpX6zJ9dCpwdYJTvqOlbg8MD9k4SaWI7upf6CPICXJgu4Jmf0C1maIL/e4Pzo3QNkOX/fxDvf1Kdh37+rwBFZAKs+EZnsCIIgCIIgCIIg2MvwpUeDu6D3wDKeBBRCt4+ElFC37yORVciibYWJLE8yC0JkAYgsAJEFILIARBaAyAIQWQAiC0BkAYgsAJEFILIARBaAyAIQWQAiC0BkAYgsAJEFILIARBZAFtLYiCxBEARBEARBEARBMA03n92tReLFYotIEvwHq2g+/aq2ZzgAAAAASUVORK5CYII="
+                                  : item?.photo
+                              }
                               style={{
                                 width: "175px",
                                 height: "100px",
@@ -296,6 +306,7 @@ const ProfileDetail = (props) => {
                               }}
                               alt="Project"
                             />
+                            {/* </a> */}
                             <p
                               style={{
                                 textAlign: "center",
