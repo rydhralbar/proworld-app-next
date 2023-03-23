@@ -9,6 +9,7 @@ import moment from "moment";
 
 const HireHistory = (props) => {
   const { hireHistory } = props;
+  const [seeMore, setSeeMore] = useState(false);
 
   // const profile = useSelector((state) => state.auth);
 
@@ -63,84 +64,274 @@ const HireHistory = (props) => {
                     </div>
                   )}
 
-                  {hireHistory?.slice(0, 5).map((item, key) => {
-                    let sentAt = moment(item?.createdAt).format(
-                      "MMMM DD, YYYY"
-                    );
-                    return (
-                      <React.Fragment key={key}>
-                        <div className="card mb-3">
-                          <div
-                            className="card-header d-flex align-items-center"
-                            style={{ background: "#5E50A1", height: "55px" }}
-                          >
-                            <h5
-                              style={{
-                                color: "white",
-                                margin: "auto",
-                                marginRight: "5px",
-                                marginLeft: 0,
-                              }}
-                            >
-                              Sender :
-                            </h5>
-                            <h5
-                              style={{
-                                color: "white",
-                                margin: "auto",
-                                marginRight: 0,
-                                marginLeft: 0,
-                              }}
-                            >
-                              <b>{item?.fullname}</b>
-                            </h5>
-                          </div>
-                          <div className="card-body">
-                            <div className="row">
-                              <div className="col-8">
-                                <div>
-                                  <h6>Purpose :</h6>
-                                  <h6>
-                                    <b>{item?.purpose}</b>
-                                  </h6>
-                                </div>
-                                <hr />
-                                <div>
-                                  <h6>Message :</h6>
-                                  <h6>
-                                    <b>{item?.description}</b>
-                                  </h6>
-                                </div>
-                              </div>
+                  {hireHistory?.length > 5
+                    ? hireHistory?.slice(0, 4).map((item, key) => {
+                        let sentAt = moment(item?.createdAt).format(
+                          "MMMM DD, YYYY"
+                        );
+                        return (
+                          <React.Fragment key={key}>
+                            <div className="card mb-3">
                               <div
-                                className="col-2"
+                                className="card-header d-flex align-items-center"
                                 style={{
-                                  borderLeftStyle: "groove",
-                                  borderLeftWidth: "1px",
-                                  borderLeftColor: "grey",
+                                  background: "#5E50A1",
+                                  height: "55px",
                                 }}
                               >
-                                <h6>Sent At</h6>
-                                <p>{sentAt}</p>
+                                <h5
+                                  style={{
+                                    color: "white",
+                                    margin: "auto",
+                                    marginRight: "5px",
+                                    marginLeft: 0,
+                                  }}
+                                >
+                                  Sender :
+                                </h5>
+                                <h5
+                                  style={{
+                                    color: "white",
+                                    margin: "auto",
+                                    marginRight: 0,
+                                    marginLeft: 0,
+                                  }}
+                                >
+                                  <b>{item?.fullname}</b>
+                                </h5>
                               </div>
+                              <div className="card-body">
+                                <div className="row">
+                                  <div className="col-8">
+                                    <div>
+                                      <h6>Purpose :</h6>
+                                      <h6>
+                                        <b>{item?.purpose}</b>
+                                      </h6>
+                                    </div>
+                                    <hr />
+                                    <div>
+                                      <h6>Message :</h6>
+                                      <h6>
+                                        <b>{item?.description}</b>
+                                      </h6>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="col-2"
+                                    style={{
+                                      borderLeftStyle: "groove",
+                                      borderLeftWidth: "1px",
+                                      borderLeftColor: "grey",
+                                    }}
+                                  >
+                                    <h6>Sent At</h6>
+                                    <p>{sentAt}</p>
+                                  </div>
+                                  <div
+                                    className="col-2"
+                                    style={{
+                                      borderLeftStyle: "groove",
+                                      borderLeftWidth: "1px",
+                                      borderLeftColor: "grey",
+                                    }}
+                                  >
+                                    <h6>Status</h6>
+                                    <p>{item?.is_read ? "Read" : "Sent"}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <hr className="mt-4 mb-4" />
+                          </React.Fragment>
+                        );
+                      })
+                    : hireHistory?.map((item, key) => {
+                        let sentAt = moment(item?.createdAt).format(
+                          "MMMM DD, YYYY"
+                        );
+                        return (
+                          <React.Fragment key={key}>
+                            <div className="card mb-3">
                               <div
-                                className="col-2"
+                                className="card-header d-flex align-items-center"
                                 style={{
-                                  borderLeftStyle: "groove",
-                                  borderLeftWidth: "1px",
-                                  borderLeftColor: "grey",
+                                  background: "#5E50A1",
+                                  height: "55px",
                                 }}
                               >
-                                <h6>Status</h6>
-                                <p>{item?.is_read ? "Read" : "Sent"}</p>
+                                <h5
+                                  style={{
+                                    color: "white",
+                                    margin: "auto",
+                                    marginRight: "5px",
+                                    marginLeft: 0,
+                                  }}
+                                >
+                                  Sender :
+                                </h5>
+                                <h5
+                                  style={{
+                                    color: "white",
+                                    margin: "auto",
+                                    marginRight: 0,
+                                    marginLeft: 0,
+                                  }}
+                                >
+                                  <b>{item?.fullname}</b>
+                                </h5>
+                              </div>
+                              <div className="card-body">
+                                <div className="row">
+                                  <div className="col-8">
+                                    <div>
+                                      <h6>Purpose :</h6>
+                                      <h6>
+                                        <b>{item?.purpose}</b>
+                                      </h6>
+                                    </div>
+                                    <hr />
+                                    <div>
+                                      <h6>Message :</h6>
+                                      <h6>
+                                        <b>{item?.description}</b>
+                                      </h6>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="col-2"
+                                    style={{
+                                      borderLeftStyle: "groove",
+                                      borderLeftWidth: "1px",
+                                      borderLeftColor: "grey",
+                                    }}
+                                  >
+                                    <h6>Sent At</h6>
+                                    <p>{sentAt}</p>
+                                  </div>
+                                  <div
+                                    className="col-2"
+                                    style={{
+                                      borderLeftStyle: "groove",
+                                      borderLeftWidth: "1px",
+                                      borderLeftColor: "grey",
+                                    }}
+                                  >
+                                    <h6>Status</h6>
+                                    <p>{item?.is_read ? "Read" : "Sent"}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <hr className="mt-4 mb-4" />
+                          </React.Fragment>
+                        );
+                      })}
+
+                  {hireHistory?.length > 5 && (
+                    <button
+                      className={`btn btn-primary ${
+                        seeMore ? "d-none" : "d-flex"
+                      } mx-auto`}
+                      onClick={() => setSeeMore(true)}
+                    >
+                      Show more
+                    </button>
+                  )}
+
+                  {seeMore &&
+                    hireHistory?.slice(5).map((item, key) => {
+                      let sentAt = moment(item?.createdAt).format(
+                        "MMMM DD, YYYY"
+                      );
+                      return (
+                        <React.Fragment key={key}>
+                          <div className="card mb-3">
+                            <div
+                              className="card-header d-flex align-items-center"
+                              style={{
+                                background: "#5E50A1",
+                                height: "55px",
+                              }}
+                            >
+                              <h5
+                                style={{
+                                  color: "white",
+                                  margin: "auto",
+                                  marginRight: "5px",
+                                  marginLeft: 0,
+                                }}
+                              >
+                                Sender :
+                              </h5>
+                              <h5
+                                style={{
+                                  color: "white",
+                                  margin: "auto",
+                                  marginRight: 0,
+                                  marginLeft: 0,
+                                }}
+                              >
+                                <b>{item?.fullname}</b>
+                              </h5>
+                            </div>
+                            <div className="card-body">
+                              <div className="row">
+                                <div className="col-8">
+                                  <div>
+                                    <h6>Purpose :</h6>
+                                    <h6>
+                                      <b>{item?.purpose}</b>
+                                    </h6>
+                                  </div>
+                                  <hr />
+                                  <div>
+                                    <h6>Message :</h6>
+                                    <h6>
+                                      <b>{item?.description}</b>
+                                    </h6>
+                                  </div>
+                                </div>
+                                <div
+                                  className="col-2"
+                                  style={{
+                                    borderLeftStyle: "groove",
+                                    borderLeftWidth: "1px",
+                                    borderLeftColor: "grey",
+                                  }}
+                                >
+                                  <h6>Sent At</h6>
+                                  <p>{sentAt}</p>
+                                </div>
+                                <div
+                                  className="col-2"
+                                  style={{
+                                    borderLeftStyle: "groove",
+                                    borderLeftWidth: "1px",
+                                    borderLeftColor: "grey",
+                                  }}
+                                >
+                                  <h6>Status</h6>
+                                  <p>{item?.is_read ? "Read" : "Sent"}</p>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <hr className="mt-4 mb-4" />
-                      </React.Fragment>
-                    );
-                  })}
+                          <hr className="mt-4 mb-4" />
+                        </React.Fragment>
+                      );
+                    })}
+
+                  {seeMore & (hireHistory?.length > 5) && (
+                    <button
+                      className={`btn btn-primary ${
+                        seeMore ? "d-flex" : "d-none"
+                      } mx-auto`}
+                      onClick={() => setSeeMore(false)}
+                    >
+                      Show less
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -168,10 +359,10 @@ export const getServerSideProps = async ({ req, res }) => {
     };
 
     const hireHistories = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/v1/user/profile`,
+      `${process.env.NEXT_PUBLIC_API_URL}/v1/user/invitation-sender`,
       config
     );
-    const convertHistory = hireHistories?.data?.data?.[0]?.hire_histories;
+    const convertHistory = hireHistories?.data?.data;
 
     return {
       props: {
