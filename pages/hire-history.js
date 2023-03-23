@@ -71,7 +71,7 @@ const HireHistory = (props) => {
                         );
                         return (
                           <React.Fragment key={key}>
-                            <div className="card mb-3">
+                            <div className="card mb-5">
                               <div
                                 className="card-header d-flex align-items-center"
                                 style={{
@@ -142,7 +142,7 @@ const HireHistory = (props) => {
                                 </div>
                               </div>
                             </div>
-                            <hr className="mt-4 mb-4" />
+                            {/* <hr className="mt-4 mb-4" /> */}
                           </React.Fragment>
                         );
                       })
@@ -152,7 +152,7 @@ const HireHistory = (props) => {
                         );
                         return (
                           <React.Fragment key={key}>
-                            <div className="card mb-3">
+                            <div className="card mb-5">
                               <div
                                 className="card-header d-flex align-items-center"
                                 style={{
@@ -223,7 +223,7 @@ const HireHistory = (props) => {
                                 </div>
                               </div>
                             </div>
-                            <hr className="mt-4 mb-4" />
+                            {/* <hr className="mt-4 mb-4" /> */}
                           </React.Fragment>
                         );
                       })}
@@ -246,7 +246,7 @@ const HireHistory = (props) => {
                       );
                       return (
                         <React.Fragment key={key}>
-                          <div className="card mb-3">
+                          <div className="card mb-5">
                             <div
                               className="card-header d-flex align-items-center"
                               style={{
@@ -317,12 +317,12 @@ const HireHistory = (props) => {
                               </div>
                             </div>
                           </div>
-                          <hr className="mt-4 mb-4" />
+                          {/* <hr className="mt-4 mb-4" /> */}
                         </React.Fragment>
                       );
                     })}
 
-                  {seeMore & (hireHistory?.length > 5) && (
+                  {seeMore & (hireHistory?.length > 5) ? (
                     <button
                       className={`btn btn-primary ${
                         seeMore ? "d-flex" : "d-none"
@@ -331,7 +331,7 @@ const HireHistory = (props) => {
                     >
                       Show less
                     </button>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </div>
