@@ -66,9 +66,7 @@ const HireHistory = (props) => {
 
                   {hireHistory?.length > 5
                     ? hireHistory?.slice(0, 4).map((item, key) => {
-                        let sentAt = moment(item?.createdAt).format(
-                          "MMMM DD, YYYY"
-                        );
+                        let sentAt = moment(item?.createdAt).format("LLL");
                         return (
                           <React.Fragment key={key}>
                             <div className="card mb-5">
@@ -126,7 +124,7 @@ const HireHistory = (props) => {
                                     }}
                                   >
                                     <h6>Sent At</h6>
-                                    <p>{sentAt}</p>
+                                    <p style={{ width: "110px" }}>{sentAt}</p>
                                   </div>
                                   <div
                                     className="col-2"
@@ -147,9 +145,7 @@ const HireHistory = (props) => {
                         );
                       })
                     : hireHistory?.map((item, key) => {
-                        let sentAt = moment(item?.createdAt).format(
-                          "MMMM DD, YYYY"
-                        );
+                        let sentAt = moment(item?.createdAt).format("LLL");
                         return (
                           <React.Fragment key={key}>
                             <div className="card mb-5">
@@ -207,7 +203,7 @@ const HireHistory = (props) => {
                                     }}
                                   >
                                     <h6>Sent At</h6>
-                                    <p>{sentAt}</p>
+                                    <p style={{ width: "110px" }}>{sentAt}</p>
                                   </div>
                                   <div
                                     className="col-2"
@@ -241,9 +237,7 @@ const HireHistory = (props) => {
 
                   {seeMore &&
                     hireHistory?.slice(5).map((item, key) => {
-                      let sentAt = moment(item?.createdAt).format(
-                        "MMMM DD, YYYY"
-                      );
+                      let sentAt = moment(item?.createdAt).format("LLL");
                       return (
                         <React.Fragment key={key}>
                           <div className="card mb-5">
@@ -301,7 +295,7 @@ const HireHistory = (props) => {
                                   }}
                                 >
                                   <h6>Sent At</h6>
-                                  <p>{sentAt}</p>
+                                  <p style={{ width: "110px" }}>{sentAt}</p>
                                 </div>
                                 <div
                                   className="col-2"

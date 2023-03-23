@@ -9,8 +9,7 @@ import Swal from "sweetalert2";
 import moment from "moment";
 
 const Notification = (props) => {
-  const [selectedMark, setSelectedMark] = useState(false);
-  const [markAllMsg, setMarkAllMsg] = useState(false);
+  const [seeMore, setSeeMore] = useState(false);
 
   const { hireHistory } = props;
 
@@ -61,17 +60,261 @@ const Notification = (props) => {
                   className="card-body"
                   style={{ height: invitation?.length === 0 && "250px" }}
                 >
-                  {invitation?.length >= 1 ? (
-                    invitation.slice(0, 5).map((item, key) => {
-                      let sentAt = moment(item?.createdAt).format(
-                        "MMMM DD, YYYY"
-                      );
+                  {invitation?.length === 0 && (
+                    <div
+                      className="d-flex align-items-center justify-content-center"
+                      style={{ height: "100%" }}
+                    >
+                      <h5>No Hiring Invitation</h5>
+                    </div>
+                  )}
+                  {invitation?.length > 5
+                    ? invitation.slice(0, 4).map((item, key) => {
+                        let sentAt = moment(item?.createdAt).format("LLL");
+                        return (
+                          <React.Fragment key={key}>
+                            <div className="card mb-3">
+                              <div
+                                className="card-header d-flex align-items-center"
+                                style={{
+                                  background: "#5E50A1",
+                                  height: "55px",
+                                }}
+                              >
+                                <h5
+                                  style={{
+                                    color: "white",
+                                    margin: "auto",
+                                    marginRight: "5px",
+                                    marginLeft: 0,
+                                  }}
+                                >
+                                  Sender :
+                                </h5>
+                                <h5
+                                  style={{
+                                    color: "white",
+                                    margin: "auto",
+                                    marginRight: 0,
+                                    marginLeft: 0,
+                                  }}
+                                >
+                                  {item?.fullname}
+                                </h5>
+                              </div>
+                              <div className="card-body">
+                                <div className="row">
+                                  <div className="col-8">
+                                    <div>
+                                      <h6>Purpose :</h6>
+                                      <h6>
+                                        <b>{item?.purpose}</b>
+                                      </h6>
+                                    </div>
+                                    <hr />
+                                    <div>
+                                      <h6>Message :</h6>
+                                      <h6>
+                                        <b>{item?.description}</b>
+                                      </h6>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="col-2"
+                                    style={{
+                                      borderLeftStyle: "groove",
+                                      borderLeftWidth: "1px",
+                                      borderLeftColor: "grey",
+                                    }}
+                                  >
+                                    <h6>Sent At</h6>
+                                    <p style={{ width: "110px" }}>{sentAt}</p>
+                                  </div>
+                                  <div
+                                    className="col-2"
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <button
+                                      className="btn btn-primary"
+                                      onClick={() => {
+                                        const config = {
+                                          headers: {
+                                            Authorization: `Bearer ${token}`,
+                                          },
+                                        };
+
+                                        axios
+                                          .get(
+                                            `${process.env.NEXT_PUBLIC_API_URL}/v1/user/invitation/${item?.id}`,
+                                            config
+                                          )
+                                          .then((res) => {
+                                            window.location.reload();
+                                          })
+                                          .catch((err) => {
+                                            Swal.fire({
+                                              icon: "error",
+                                              title: "Oops..",
+                                              text:
+                                                err?.response?.data?.messages ??
+                                                "There was an error, please try again later",
+                                              confirmButtonText: "OK",
+                                              confirmButtonColor: "#5E50A1",
+                                            });
+                                          });
+                                      }}
+                                      disabled={item?.is_read}
+                                    >
+                                      {item?.is_read
+                                        ? "Already read"
+                                        : "Mark as read"}
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <hr className="mt-4 mb-4" />
+                          </React.Fragment>
+                        );
+                      })
+                    : invitation.map((item, key) => {
+                        let sentAt = moment(item?.createdAt).format("LLL");
+                        return (
+                          <React.Fragment key={key}>
+                            <div className="card mb-3">
+                              <div
+                                className="card-header d-flex align-items-center"
+                                style={{
+                                  background: "#5E50A1",
+                                  height: "55px",
+                                }}
+                              >
+                                <h5
+                                  style={{
+                                    color: "white",
+                                    margin: "auto",
+                                    marginRight: "5px",
+                                    marginLeft: 0,
+                                  }}
+                                >
+                                  Sender :
+                                </h5>
+                                <h5
+                                  style={{
+                                    color: "white",
+                                    margin: "auto",
+                                    marginRight: 0,
+                                    marginLeft: 0,
+                                  }}
+                                >
+                                  {item?.fullname}
+                                </h5>
+                              </div>
+                              <div className="card-body">
+                                <div className="row">
+                                  <div className="col-8">
+                                    <div>
+                                      <h6>Purpose :</h6>
+                                      <h6>
+                                        <b>{item?.purpose}</b>
+                                      </h6>
+                                    </div>
+                                    <hr />
+                                    <div>
+                                      <h6>Message :</h6>
+                                      <h6>
+                                        <b>{item?.description}</b>
+                                      </h6>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="col-2"
+                                    style={{
+                                      borderLeftStyle: "groove",
+                                      borderLeftWidth: "1px",
+                                      borderLeftColor: "grey",
+                                    }}
+                                  >
+                                    <h6>Sent At</h6>
+                                    <p style={{ width: "110px" }}>{sentAt}</p>
+                                  </div>
+                                  <div
+                                    className="col-2"
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <button
+                                      className="btn btn-primary"
+                                      onClick={() => {
+                                        const config = {
+                                          headers: {
+                                            Authorization: `Bearer ${token}`,
+                                          },
+                                        };
+
+                                        axios
+                                          .get(
+                                            `${process.env.NEXT_PUBLIC_API_URL}/v1/user/invitation/${item?.id}`,
+                                            config
+                                          )
+                                          .then((res) => {
+                                            window.location.reload();
+                                          })
+                                          .catch((err) => {
+                                            Swal.fire({
+                                              icon: "error",
+                                              title: "Oops..",
+                                              text:
+                                                err?.response?.data?.messages ??
+                                                "There was an error, please try again later",
+                                              confirmButtonText: "OK",
+                                              confirmButtonColor: "#5E50A1",
+                                            });
+                                          });
+                                      }}
+                                      disabled={item?.is_read}
+                                    >
+                                      {item?.is_read
+                                        ? "Already read"
+                                        : "Mark as read"}
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <hr className="mt-4 mb-4" />
+                          </React.Fragment>
+                        );
+                      })}
+                  {invitation?.length > 5 && (
+                    <button
+                      className={`btn btn-primary ${
+                        seeMore ? "d-none" : "d-flex"
+                      } mx-auto`}
+                      onClick={() => setSeeMore(true)}
+                    >
+                      Show more
+                    </button>
+                  )}
+                  {seeMore &&
+                    invitation?.slice(5).map((item, key) => {
+                      let sentAt = moment(item?.createdAt).format("LLL");
                       return (
                         <React.Fragment key={key}>
-                          <div className="card mb-3">
+                          <div className="card mb-5">
                             <div
                               className="card-header d-flex align-items-center"
-                              style={{ background: "#5E50A1", height: "55px" }}
+                              style={{
+                                background: "#5E50A1",
+                                height: "55px",
+                              }}
                             >
                               <h5
                                 style={{
@@ -91,7 +334,7 @@ const Notification = (props) => {
                                   marginLeft: 0,
                                 }}
                               >
-                                {item?.fullname}
+                                <b>{item?.fullname}</b>
                               </h5>
                             </div>
                             <div className="card-body">
@@ -119,8 +362,8 @@ const Notification = (props) => {
                                     borderLeftColor: "grey",
                                   }}
                                 >
-                                  <h6>Created</h6>
-                                  <p>{sentAt}</p>
+                                  <h6>Sent At</h6>
+                                  <p style={{ width: "110px" }}>{sentAt}</p>
                                 </div>
                                 <div
                                   className="col-2"
@@ -169,18 +412,21 @@ const Notification = (props) => {
                               </div>
                             </div>
                           </div>
-                          <hr className="mt-4 mb-4" />
+                          {/* <hr className="mt-4 mb-4" /> */}
                         </React.Fragment>
                       );
-                    })
-                  ) : (
-                    <div
-                      className="d-flex align-items-center justify-content-center"
-                      style={{ height: "100%" }}
+                    })}
+
+                  {seeMore & (invitation?.length > 5) ? (
+                    <button
+                      className={`btn btn-primary ${
+                        seeMore ? "d-flex" : "d-none"
+                      } mx-auto`}
+                      onClick={() => setSeeMore(false)}
                     >
-                      <h5>No Hiring Invitation</h5>
-                    </div>
-                  )}
+                      Show less
+                    </button>
+                  ) : null}
                 </div>
               </div>
             </div>
