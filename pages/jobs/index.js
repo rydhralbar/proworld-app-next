@@ -25,21 +25,21 @@ const Index = (props) => {
   const [sortBy, setSortBy] = useState(["id", "DESC"]);
   const [errMsg, setErrMsg] = useState("");
 
-  useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=${page}&limit=${limit}&order=${sortBy[1]}&sortBy=${sortBy[0]}`
-      )
-      .then((res) => {
-        setData(res?.data?.data?.rows);
-      })
-      .catch((err) => {
-        setErrMsg(err?.response?.data?.message);
-      })
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   axios
+  //     .get(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/v1/user/list?page=${page}&limit=${limit}&order=${sortBy[1]}&sortBy=${sortBy[0]}`
+  //     )
+  //     .then((res) => {
+  //       setData(res?.data?.data?.rows);
+  //     })
+  //     .catch((err) => {
+  //       setErrMsg(err?.response?.data?.message);
+  //     })
 
-      .finally(() => setIsLoading(false));
-  }, []);
+  //     .finally(() => setIsLoading(false));
+  // }, []);
 
   const fetchPagination = (pagePosition) => {
     setIsLoading(true);
